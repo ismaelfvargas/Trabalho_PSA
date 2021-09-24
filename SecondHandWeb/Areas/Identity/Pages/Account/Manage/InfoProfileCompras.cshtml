@@ -1,0 +1,41 @@
+﻿@page
+@model InfoProfileComprasModel
+@{
+    ViewData["Title"] = "Informações de Compras";
+    ViewData["ActivePage"] = ManageNavPages.InfoProfileCompras;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.ProdutosComprados)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.ProdutosComprados)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.ProdutosCompradosEntregue)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.ProdutosCompradosEntregue)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.ProdutosCompradosEntregue)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.ProdutosCompradosEntregue)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.ProdutosComVendaNegada)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.ProdutosComVendaNegada)
+        </dd>
+    </dl>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

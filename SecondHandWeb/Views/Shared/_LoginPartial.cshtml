@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@*@inject SignInManager<IdentityUser> SignInManager
+    @inject UserManager<IdentityUser> UserManager*@
+
+@inject SignInManager<Entities.Models.ApplicationUser> SignInManager
+    @inject UserManager<Entities.Models.ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (@User.Identity.Name!.ToUpper().Contains("ADM"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-light btn-danger" asp-area="" asp-controller="ADM" asp-action="Index">Área Administrativa</a>
+            </li>
+
+        }
+
+        @if (@User.Identity.Name!.ToUpper().Contains("ENTREGADOR"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-light btn-danger" asp-area="" asp-controller="Entregador" asp-action="Index">Área do Entregador</a>
+            </li>
+
+        }
+
+        <li class="nav-item">
+            <a class="nav-link text-light btn-danger" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Olá @User.Identity.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-light btn-danger">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light btn-danger" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light btn-danger" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

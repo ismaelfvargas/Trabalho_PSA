@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Entities.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos Em Rota De Entrega";
+}
+
+<center><h1>Produtos aguardando confirmação de entrega</h1></center>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeVendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeComprador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnderecoComprador)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.ProdutoId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.NomeVendedor)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.NomeComprador)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.EnderecoComprador)
+                </td>
+                <td>
+                    <a asp-action="ProdutoEntregue" asp-route-id="@item.ProdutoId">Confirmar entrega</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+<a asp-action="Index">Voltar</a>

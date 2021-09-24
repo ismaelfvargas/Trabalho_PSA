@@ -1,0 +1,89 @@
+﻿@model Entities.Models.Produto
+
+@{ ViewData["Title"] = "Avaliar Vendedor"; }
+
+<center><h1>Avaliar o Vendedor</h1></center>
+
+<div>
+    <center><h4>@Model.Name</h4></center>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataEntrada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataEntrada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeVendedor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeVendedor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EnderecoRemetente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EnderecoRemetente)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataVenda)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataVenda)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeComprador)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeComprador)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categoria.Name)
+        </dd>
+    </dl>
+</div>
+
+<hr />
+<h3>Avaliar o Vendedor</h3>
+<div>
+    Dê uma nota de 1 a 5 para o vendedor
+</div>
+<div>
+    <form asp-controller="MeusProdutosComprados" asp-action="SalvaAvaliacao">
+        <p>
+
+            <input type="hidden" name="userName" value="@Model.NomeVendedor" />
+            <input type="hidden" name="idProd" value="@Model.ProdutoId" />
+
+            <select asp-items="@ViewBag.Status" name="avaliacao"></select>
+            <input type="submit" value="Enviar" />
+        </p>
+    </form>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>

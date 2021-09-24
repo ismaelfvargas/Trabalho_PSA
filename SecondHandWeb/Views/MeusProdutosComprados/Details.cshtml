@@ -1,0 +1,163 @@
+﻿@model Entities.Models.Produto
+
+@{ ViewData["Title"] = "Detalhes"; }
+
+<center><h1>Detalhes do Produto</h1></center>
+
+<div>
+    <center><h4>@Model.Name</h4></center>
+    <hr />
+    @if (Model.Estado == Entities.Models.Enums.StatusProduto.Aguardando_Aprovacao)
+    {
+<a asp-action="Cancel" asp-route-id="@Model.ProdutoId" class="btn btn-danger text-warning" >Cancelar pedido</a>
+                <hr />}
+
+    @if (Model.Estado == Entities.Models.Enums.StatusProduto.Bloqueado)
+    {
+<span>
+    Vendedor Desistiu da venda do produto!
+</span>
+                <hr />}
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataEntrada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataEntrada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeVendedor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeVendedor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EnderecoRemetente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EnderecoRemetente)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataVenda)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataVenda)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeComprador)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeComprador)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categoria.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-danger text-warning" >Voltar para Compras Realizadas</a>
+</div>
+
+@if (Model.Estado == Entities.Models.Enums.StatusProduto.Aguardando_Aprovacao)
+    {
+            <hr />
+            <h3>Fazer uma pergunta</h3>
+            <form asp-controller="MeusProdutosComprados" asp-action="SalvaPergunta">
+                <p>
+
+                    <input type="hidden" name="id" value="@Model.ProdutoId" />
+
+                    pergunta: <input type="text" name="per" />
+                    <input type="submit" value="Enviar" />
+                </p>
+            </form>           
+    }
+
+    <div>
+        <hr />
+        @if (Model.Pergunta.Count() >= 1)
+        {
+            <h5>Perguntas anteriores</h5>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    @foreach (Entities.Models.Pergunta per in Model.Pergunta)
+                    {
+                        <div>
+                            <FONT COLOR="#000000">Pergunta:</FONT> @per.Perguntas
+                        </div>
+                        <div>
+                            -----<FONT COLOR="#4F4F4F">Resposta:</FONT> @per.Respostas
+                        </div>
+                        <hr />
+                    }
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <h5>Sem Perguntas Anteriores</h5>
+        }
+
+    </div>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .column {
+            flex: 33.33%;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <hr />
+        <center><h3>Imagens</h3></center>
+        <center>
+            <div class="row">
+                <div class="column">
+                    @foreach (Entities.Models.Imagem im in Model.Imagens)
+                    {
+        <img src=@Url.Action("GetImage", "ProdutosDisponiveis", new { id=im.ImagemId})
+             alt=@im.ImageMimeType
+             style="width:20%">}
+                </div>
+            </div>
+        </center>
+    </div>
+</body>
+</html>

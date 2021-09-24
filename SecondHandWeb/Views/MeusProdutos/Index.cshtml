@@ -1,0 +1,147 @@
+﻿@model SecondHandWeb.Models.ProdutoCategoriaViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-controller="MeusProdutos" asp-action="Index" method="get" class="bg-warning">
+    <table class="table">
+        <tr>
+            <td>
+                Nome do Produto: <input type="text" asp-for="SearchString" />
+            </td>
+            <td>
+                Categorias: <select asp-for="ProdutosCategoria" asp-items="Model.Categorias">
+                    <option value="">Todos</option>
+                </select>
+            </td>
+            <td>
+                Valor Inicial: <input type="text" asp-for="ValIni" />
+            </td>
+            <td>
+                Valor Limite: <input type="text" asp-for="ValFinal" />
+            </td>
+            <td>
+                <br>
+                <input type="submit" value="Filtrar" class="btn btn-danger text-warning" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<center><h1>Meus Produtos</h1></center>
+
+
+    @if (ViewBag.usuario.CEP == null || ViewBag.usuario.Endereco == null)
+    {
+<span>
+    Insira seu Numero Celular, CEP e Endereço no link ao lado para conseguir vender seus produtos <a class="btn btn-primary bg-danger text-white" href="https://localhost:44325/Identity/Account/Manage" role="button">Link</a>
+</span>
+    }
+    else
+    {        
+        <div>
+            <div>
+                <a asp-action="Create" class="btn btn-danger text-warning">Vender novo Produto</a>
+                <p class="font-weight-bold text-justify text-danger">Sua Reputação atual: @ViewBag.usuario.ReputacaoFinal</p>
+            </div>
+        </div >
+    }
+
+
+<table class="table" align="center" border="1">
+    <thead>
+        <tr class="bg-danger text-warning" align="center">
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].DataEntrada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].DataVenda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].NomeComprador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].EnderecoComprador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Produtos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataEntrada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataVenda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeComprador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnderecoComprador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Name)
+                </td>
+                <td>
+                    @if (item.Pergunta.Count() >= 1)
+                    {
+                        @if (item.Estado == Entities.Models.Enums.StatusProduto.Bloqueado)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            @foreach (Entities.Models.Pergunta per in item.Pergunta)
+                            {
+                                @if (per.StatusPergunta == Entities.Models.Enums.StatusPergunta.PerguntaAguardando)
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.ProdutoId" class="btn btn-danger text-warning">Responder Pergunta</a>
+                                    <hr />
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    <a asp-action="Details" asp-route-id="@item.ProdutoId" class="btn btn-danger text-warning" >Details</a>
+                    <hr />
+                    @if (item.Estado == Entities.Models.Enums.StatusProduto.Aguardando_Aprovacao)
+                    {
+                        <a asp-action="ResponderCompra" asp-route-id="@item.ProdutoId" class="btn btn-danger text-warning" >Responder Solicitação de Compra</a>
+                        <hr />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Entities.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos Disponiveis Para Entrega";
+}
+
+<center><h1>Produtos disponíveis para entrega</h1></center>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeVendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeComprador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnderecoComprador)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProdutoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeVendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeComprador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnderecoComprador)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ProdutoId">Details</a><br>
+                <a asp-action="Details" asp-route-id="@item.ProdutoId">Entregar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<hr />
+<a asp-action="Index">Voltar</a>

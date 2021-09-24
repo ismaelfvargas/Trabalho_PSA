@@ -1,0 +1,48 @@
+﻿@model SecondHandWeb.Models.NumeroAnunciosPorPeriodoViewModel
+
+@{
+    ViewData["Title"] = "Total de Anuncios em um determinado Periodo";
+}
+
+<h1>Total de Anuncios em um determinado Periodo</h1>
+
+<form asp-controller="ADM" asp-action="NumeroAnunciosPorPeriodo" method="get">
+    <p>
+        <div class="form-group">
+            <label asp-for="dtIni" class="control-label"></label>
+            <input asp-for="dtIni" class="form-control" />
+            <span asp-validation-for="dtIni" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="dtFim" class="control-label"></label>
+            <input asp-for="dtFim" class="form-control" />
+            <span asp-validation-for="dtFim" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Procurar" class="btn btn-primary" />
+        </div>
+    </p>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.numAnunciosPeriodo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.numAnunciosPeriodo)
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<a asp-action="Index">Voltar</a>
+

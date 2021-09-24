@@ -1,0 +1,59 @@
+﻿@page
+@model InfoProfileModel
+@{
+    ViewData["Title"] = "Informações de Vendas";
+    ViewData["ActivePage"] = ManageNavPages.InfoProfile;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.reputacao)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.reputacao)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.entregue)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.entregue)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.vendidos)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.vendidos)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.emRotaEntrega)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.emRotaEntrega)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.aguardandoAprov)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.aguardandoAprov)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.aVenda)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.aVenda)
+        </dd>
+        <dt class="col-sm-2"><br>
+            @Html.DisplayNameFor(model => model.bloqueados)
+        </dt>
+        <dd class="col-sm-10"><br>
+            @Html.DisplayFor(model => model.bloqueados)
+        </dd>
+    </dl>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

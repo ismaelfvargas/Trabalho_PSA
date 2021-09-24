@@ -1,0 +1,119 @@
+﻿@model SecondHandWeb.Models.ProdutoCategoriaViewModel
+
+@{
+    ViewData["Title"] = "Compras Realizadas";
+}
+
+<form asp-controller="MeusProdutosComprados" asp-action="Index" method="get" class="bg-warning">
+    <table class="table">
+        <tr>
+            <td>
+                Nome do Produto: <input type="text" asp-for="SearchString" />
+            </td>
+            <td>
+                Categorias: <select asp-for="ProdutosCategoria" asp-items="Model.Categorias">
+                    <option value="">Todos</option>
+                </select>
+            </td>
+            <td>
+                Valor Inicial: <input type="text" asp-for="ValIni" />
+            </td>
+            <td>
+                Valor Limite: <input type="text" asp-for="ValFinal" />
+            </td>
+            <td>
+                <br>
+                <input type="submit" value="Filtrar" class="btn btn-danger text-warning"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<center><h1>Minhas Compras</h1></center>
+
+<table class="table" align="center" border="1">
+    <thead>
+        <tr class="bg-danger text-warning" align="center">
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].DataVenda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].EnderecoRemetente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].NomeVendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produtos[0].Categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Produtos)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataVenda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnderecoRemetente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeVendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Name)
+            </td>
+            <td>
+                <div>
+                    <a asp-action="Details" asp-route-id="@item.ProdutoId" class="btn btn-danger text-warning" >Details</a>
+                    <hr />
+                </div>
+                @if (item.Estado == Entities.Models.Enums.StatusProduto.Aguardando_Aprovacao)
+                {
+                <div>
+                <span>
+                    <a asp-action="Details" asp-route-id="@item.ProdutoId" class="btn btn-danger text-warning" >Cancelar pedido</a>
+                </span>
+                <hr />
+                </div>  
+                }
+                @if (item.Estado == Entities.Models.Enums.StatusProduto.Entregue)
+                {
+                <div>
+                <span>
+                    <a asp-action="Avaliar" asp-route-id="@item.ProdutoId" class="btn btn-danger text-warning" >Avaliar Vendedor</a>
+                </span>
+                <hr />
+                </div>  
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
